@@ -16,13 +16,6 @@ else()
   message(WARNING "Mercurial not found, PACKAGE_BUILD_NUMBER set to ${PACKAGE_BUILD_NUMBER}")
 endif()
   
-# file(GLOB CONFIGS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cmake.in)
-# 
-# foreach(FILE ${CONFIGS})
-#   string(REGEX REPLACE ".cmake.in$" ".cmake" CFG ${FILE})
-#   configure_file(${FILE} ${CFG} @ONLY)
-# endforeach()
 configure_file(commons.cmake.in commons.cmake @ONLY)
 configure_file(fedora.cmake.in fedora.cmake @ONLY)
 configure_file(debian.cmake.in debian.cmake @ONLY)
-message(STATUS fatto)
