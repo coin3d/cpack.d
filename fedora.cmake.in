@@ -1,5 +1,5 @@
 ##############################################################################
-# Unoffical CPACK configuration for Linux Fedora 27
+# Unoffical CPACK configuration for Linux Fedora (tested on Fedora 27 and 28)
 #
 # See also 
 # http://fedoraproject.org/wiki/Packaging:Naming
@@ -7,11 +7,17 @@
 ##############################################################################
 include("@CMAKE_CURRENT_BINARY_DIR@/commons.cmake")
 
+macro(get_release)
+  file(STRINGS /etc/redhat-release FEDORA_RELEASE)
+  string(REGEX REPLACE ".*Fedora release ([0-9]+) .*" "\\1" FEDORA_RELEASE "${FEDORA_RELEASE}")
+endmacro(get_release)
+
 config_package(NAME "@PROJECT_NAME@" LOWCASE)
+get_release()
 
 set(CPACK_GENERATOR "RPM")
 # see https://fedoraproject.org/wiki/Packaging:DistTag?rd=Packaging/DistTag
-set(CPACK_RPM_PACKAGE_RELEASE "@PACKAGE_BUILD_NUMBER@.fc27") 
+set(CPACK_RPM_PACKAGE_RELEASE "@PACKAGE_BUILD_NUMBER@.fc${FEDORA_RELEASE}") 
 set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${CPACK_RPM_PACKAGE_RELEASE}.@CMAKE_SYSTEM_PROCESSOR@")
 set(CPACK_RPM_COMPONENT_INSTALL "ON")
 set(CPACK_RPM_PACKAGE_LICENSE "BSD")
