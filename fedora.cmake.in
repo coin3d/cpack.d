@@ -12,7 +12,7 @@ macro(get_release)
   string(REGEX REPLACE ".*Fedora release ([0-9]+) .*" "\\1" FEDORA_RELEASE "${FEDORA_RELEASE}")
 endmacro(get_release)
 
-config_package(NAME "@PROJECT_NAME@" LOWCASE)
+config_package(LOWCASE)
 get_release()
 
 set(CPACK_GENERATOR "RPM")
