@@ -11,7 +11,10 @@ set(CPACK_INSTALL_CMAKE_PROJECTS  "@PROJECT_BINARY_DIR@;@PROJECT_NAME@;ALL;/")
 # config_package ([NAME package_name] [LOWER])
 # 
 # NAME
-#   value for CPACK_PACKAGE_NAME, default PROJECT_NAME
+#   value for CPACK_PACKAGE_NAME, default is "%PROJECT_NAME%".
+#   The string "%PROJECT_NAME%" is a placeholder for PROJECT_NAME variable,
+#   eligible to be changed to ${PROJECT_NAME}${PROJECT_VERSION_MAJOR}
+#   when HAVE_MULTIPLE_VERSION is set.
 #
 # DATA
 #   packaging data directory, default ${PROJECT_SOURCE_DIR}/packaging
@@ -26,19 +29,18 @@ macro(config_package)
   set(options LOWCASE)
   set(oneValueArgs NAME DATA)
   cmake_parse_arguments(PKG "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
-  if (PKG_NAME)
-    set(CPACK_PACKAGE_NAME "${PKG_NAME}")
-  else()
-    set(CPACK_PACKAGE_NAME "@PROJECT_NAME@")
+  if (NOT PKG_NAME)
+    set(PKG_NAME "%PROJECT_NAME%")
+  endif()
+  if (@HAVE_MULTIPLE_VERSION@)
+    set(PKG_NAME "${PKG_NAME}@PROJECT_VERSION_MAJOR@")
+  endif()
+  string(REPLACE "%PROJECT_NAME%" "@PROJECT_NAME@" CPACK_PACKAGE_NAME "${PKG_NAME}")
+  if (PKG_LOWCASE)
+    string(TOLOWER "${CPACK_PACKAGE_NAME}" CPACK_PACKAGE_NAME)
   endif()
   if (NOT PKG_DATA) 
     set(PKG_DATA "@PROJECT_SOURCE_DIR@/packaging")
-  endif()
-  if (@HAVE_MULTIPLE_VERSION@)
-    set(CPACK_PACKAGE_NAME "@PROJECT_NAME@@PROJECT_VERSION_MAJOR@")
-  endif()
-  if (PKG_LOWCASE)
-    string(TOLOWER "${CPACK_PACKAGE_NAME}" CPACK_PACKAGE_NAME)
   endif()
   set(PROJECT_URL                         "https://bitbucket.org/Coin3D/@PROJECT_NAME@")
   set(CPACK_COMPONENT_DEVELOPMENT_DEPENDS "runtime")
