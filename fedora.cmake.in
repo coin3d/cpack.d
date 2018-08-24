@@ -27,6 +27,7 @@ set(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST_ADDITION
 "/usr/lib64/qt5"
 "/usr/lib64/qt5/plugins"
 "/usr/lib64/qt5/plugins/designer"
+"/usr/share/man"
 )
 
 execute_process(
