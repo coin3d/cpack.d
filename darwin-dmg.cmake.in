@@ -1,0 +1,36 @@
+##############################################################################
+# Unoffical CPACK configuration for Mac OS X systems
+# tested on Mac OS X 10.12 Sierra and 10.14 Mojave (64 bits)
+#
+##############################################################################
+include("@CMAKE_CURRENT_BINARY_DIR@/commons.cmake")
+
+config_package(LOWCASE)
+
+set(CPACK_GENERATOR "DragNDrop")
+
+if("@CMAKE_SIZEOF_VOID_P@" EQUAL 8)
+  set(CPACK_SYSTEM_NAME macosx64)
+else()
+  set(CPACK_SYSTEM_NAME macosx32)
+endif()
+
+set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${CPACK_SYSTEM_NAME}-noinst")
+set(CPACK_DMG_DISABLE_APPLICATIONS_SYMLINK ON)
+set(CPACK_DMG_BACKGROUND_IMAGE "@CMAKE_SOURCE_DIR@/packaging/macosx/noinst-dmg-files/DMGBackground.tiff")
+set(CPACK_DMG_DS_STORE_SETUP_SCRIPT "@CMAKE_CURRENT_BINARY_DIR@/DMGSetup.scpt")
+
+execute_process(
+  COMMAND echo "${CPACK_COMPONENTS_ALL}"
+  WORKING_DIRECTORY "@CMAKE_CURRENT_BINARY_DIR@"
+  OUTPUT_FILE "components.list"
+)
+
+#list(FILTER CPACK_COMPONENTS_ALL INCLUDE REGEX "runtime|development|documentation|debug")
+set(ARTIFACTS "${CPACK_PACKAGE_FILE_NAME}.dmg")
+
+execute_process(
+  COMMAND echo "${ARTIFACTS}"
+  WORKING_DIRECTORY "@CMAKE_CURRENT_BINARY_DIR@"
+  OUTPUT_FILE "artifacts.list"
+)

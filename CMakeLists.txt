@@ -18,6 +18,10 @@ endif()
   
 file(GLOB CONFIGS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cmake.in)
 
+if(APPLE)
+  configure_file(DMGSetup.scpt.in DMGSetup.scpt @ONLY)
+endif()
+
 foreach(FILE ${CONFIGS})
   string(REGEX REPLACE ".cmake.in$" ".cmake" CFG ${FILE})
   configure_file(${FILE} ${CFG} @ONLY)
