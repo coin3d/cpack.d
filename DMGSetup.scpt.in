@@ -33,7 +33,7 @@ on run argv
         set statusbar visible to false
         set toolbar visible to false
         set the bounds to { X_POS, Y_POS, X_POS + BG_W, Y_POS + BG_H + TITLE_BAR_H }
-        set position of item "@COIN_MAC_FRAMEWORK_NAME@.framework" to { 0, 75 }
+        set position of item "@PACKAGING_FRAMEWORK_NAME@.framework" to { 0, 75 }
         set position of item "Frameworks" to { 150, 75 }
       end tell
       update without registering applications

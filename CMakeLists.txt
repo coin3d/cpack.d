@@ -22,7 +22,7 @@ if(APPLE)
   configure_file(DMGSetup.scpt.in DMGSetup.scpt @ONLY)
   configure_file("${CMAKE_SOURCE_DIR}/COPYING" "${CMAKE_BINARY_DIR}/COPYING.txt" COPYONLY)
   configure_file("${CMAKE_SOURCE_DIR}/README"  "${CMAKE_BINARY_DIR}/README.txt"  COPYONLY)
-  configure_file("${CMAKE_SOURCE_DIR}/packaging/macosx/Coin_Welcome.rtf"  "${CMAKE_BINARY_DIR}/WELCOME.rtf"  COPYONLY)
+  configure_file("${CMAKE_SOURCE_DIR}/packaging/macosx/Welcome.rtf"  "${CMAKE_BINARY_DIR}/WELCOME.rtf"  COPYONLY)
 endif()
 
 foreach(FILE ${CONFIGS})
