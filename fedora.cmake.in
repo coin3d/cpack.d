@@ -12,7 +12,8 @@ macro(get_release)
   string(REGEX REPLACE ".*Fedora release ([0-9]+) .*" "\\1" FEDORA_RELEASE "${FEDORA_RELEASE}")
 endmacro(get_release)
 
-config_package(LOWCASE)
+# config_package(LOWCASE)
+config_package()
 get_release()
 
 set(CPACK_GENERATOR "RPM")
@@ -40,7 +41,7 @@ list(FILTER CPACK_COMPONENTS_ALL INCLUDE REGEX "runtime|development|documentatio
 set(ARTIFACTS "${CPACK_COMPONENTS_ALL}")
 ##############################################################################
 # runtime
-set(CPACK_RPM_RUNTIME_PACKAGE_NAME "${CPACK_PACKAGE_NAME}-libs")
+set(CPACK_RPM_RUNTIME_PACKAGE_NAME "${CPACK_PACKAGE_NAME}")
 set(CPACK_RPM_RUNTIME_PACKAGE_ARCHITECTURE "@CMAKE_SYSTEM_PROCESSOR@")
 set(CPACK_RPM_RUNTIME_FILE_NAME "${CPACK_RPM_RUNTIME_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${CPACK_RPM_PACKAGE_RELEASE}.${CPACK_RPM_RUNTIME_PACKAGE_ARCHITECTURE}.rpm")
 set(CPACK_RPM_RUNTIME_PACKAGE_GROUP "System Environment/Libraries")
