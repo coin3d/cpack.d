@@ -95,6 +95,8 @@ function(hg_info)
   set(PACKAGE_BUILD_NUMBER "${PACKAGE_BUILD_NUMBER}" PARENT_SCOPE)
 endfunction(hg_info)
 
+option(OPTION_PKG_DEBUGINFO "Build additional debug information package[s]")
+
 # get all found components
 get_cmake_property(PACKAGE_COMPONENTS_ALL COMPONENTS)
 
