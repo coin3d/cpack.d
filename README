@@ -33,7 +33,7 @@ Build status report
 If the CMake list PACKAGE_OPTIONS is filled with options names used in the
 project, their status will be reported in a file named:
 
-    <build type>-options.txt
+    build-options.txt
 
 that is added to the runtime package.
 
@@ -78,6 +78,7 @@ invoked like in the example:
 
 will produce a report like the following:
 
+    CMAKE_BUILD_TYPE=RelWithDebInfo
     OPTION_PKG_DEBUGINFO=ON
     SIMAGE_BUILD_DOCUMENTATION=OFF
     SIMAGE_BUILD_SHARED_LIBS=ON
