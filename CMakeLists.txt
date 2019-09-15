@@ -1,3 +1,63 @@
+if (POLICY CMP0070)
+  cmake_policy(SET CMP0070 NEW)
+endif()
+
+# Dumps all the variables listed in PACKAGE_OPTIONS in a text file named
+# <lower case build type>-options.txt
+#
+# The report is installed in 
+# "${CMAKE_INSTALL_INFODIR}/${PROJECT_NAME}${PROJECT_VERSION_MAJOR}"
+# and packaged with the runtime component.
+#
+# The following helper function can be used in the client projects to populate
+# the PACKAGE_OPTIONS list.
+#
+# function(report_prepare)
+#   set(multiValueArgs IF_APPLE IF_WIN32)
+#   cmake_parse_arguments(REPORT "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
+#   if (REPORT_IF_APPLE AND APPLE) 
+#     list(APPEND res ${REPORT_IF_APPLE})
+#   endif()
+#   if (REPORT_IF_WIN32 AND WIN32) 
+#     list(APPEND res ${REPORT_IF_WIN32})
+#   endif()
+#   list(APPEND res ${REPORT_UNPARSED_ARGUMENTS})
+#   list(APPEND PACKAGE_OPTIONS ${res} )
+#   set(PACKAGE_OPTIONS "${PACKAGE_OPTIONS}" PARENT_SCOPE)
+# endfunction(report_prepare)
+# 
+# Invokation example:
+#
+# report_prepare(
+#   SIMAGE_BUILD_SHARED_LIBS
+#   SIMAGE_BUILD_DOCUMENTATION
+#   SIMAGE_USE_QIMAGE
+#   SIMAGE_USE_QT5
+#   SIMAGE_LIBSNDFILE_SUPPORT
+#   SIMAGE_OGGVORBIS_SUPPORT
+#   SIMAGE_QIMAGE_SUPPORT
+#   SIMAGE_EPS_SUPPORT
+#   SIMAGE_MPEG2ENC_SUPPORT
+#   SIMAGE_PIC_SUPPORT
+#   SIMAGE_RGB_SUPPORT
+#   SIMAGE_TGA_SUPPORT
+#   SIMAGE_XWD_SUPPORT
+#   IF_WIN32 
+#     SIMAGE_USE_AVIENC SIMAGE_USE_GDIPLUS SIMAGE_AVIENC_SUPPORT SIMAGE_GDIPLUS_SUPPORT
+#   IF_APPLE 
+#     SIMAGE_USE_CGIMAGE SIMAGE_USE_QUICKTIME SIMAGE_CGIMAGE_SUPPORT SIMAGE_QUICKTIME_SUPPORT
+# )
+function(report_write)
+  list(APPEND res "OPTION_PKG_DEBUGINFO=${OPTION_PKG_DEBUGINFO}")
+  foreach(O IN LISTS PACKAGE_OPTIONS)
+    list(APPEND res "${O}=${${O}}")
+  endforeach()
+  list(SORT res)
+  set(report_name "$<LOWER_CASE:$<CONFIG>>-options.txt")
+  file(GENERATE OUTPUT ${report_name} CONTENT "$<JOIN:${res},\n>")
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${report_name} DESTINATION "${CMAKE_INSTALL_INFODIR}/${PROJECT_NAME}${PROJECT_VERSION_MAJOR}" COMPONENT runtime)
+endfunction(report_write)
+
 # retrieves mercurial project infos setting the following variables:
 #
 # PACKAGE_BRANCH  current hg branch name
@@ -60,3 +120,5 @@ foreach(FILE ${CONFIGS})
   string(REGEX REPLACE ".cmake.in$" ".cmake" CFG ${FILE})
   configure_file(${FILE} ${CFG} @ONLY)
 endforeach()
+
+report_write()
