@@ -97,6 +97,9 @@ function(hg_info)
 endfunction(hg_info)
 
 option(OPTION_PKG_DEBUGINFO "Build additional debug information package[s]")
+if (OPTION_PKG_DEBUGINFO AND NOT CMAKE_BUILD_TYPE STREQUAL Debug AND NOT CMAKE_BUILD_TYPE STREQUAL RelWithDebInfo)
+  message(WARNING "OPTION_PKG_DEBUGINFO is ON but required debug info could be missing in '${CMAKE_BUILD_TYPE}' builds")
+endif()
 
 # get all found components
 get_cmake_property(PACKAGE_COMPONENTS_ALL COMPONENTS)
