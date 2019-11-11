@@ -27,6 +27,32 @@ Project specific settings, like the description summary, are fetched
 from an external directory passed during the invocation of the 'config_package'
 macro via the DATA argument.
 
+Currently supported OSes
+========================
+
+Below a list of the OSes currently supported and their status:
+
+	+------------+-------------+------------+------------------+
+	| Name       |  Version    | Format     | Config           |
+	+============+=============+============+==================+
+	| CentOS     | 7           | rpm        | centos.cmake     |
+	+------------+-------------+------------+------------------+
+	| Debian     | 8           | deb        | debian.cmake     |
+	+------------+-------------+------------+------------------+
+	| MacOS X    | 10.12,10.14 | dmg        | darwin-dmg.cmake |
+	|            |             | pkg        | darwin-pkg.cmake |
+	+------------+-------------+------------+------------------+
+	| Fedora     | 28,29,30    | rpm        | fedora.cmake     |
+	+------------+-------------+------------+------------------+
+	| *RHEL      | 7           | rpm        | rhel.cmake       |
+	+------------+-------------+------------+------------------+
+	| Ubuntu     | 14          | deb        | debian.cmake     |
+	+------------+-------------+------------+------------------+
+	| Windows    | 10          | NSIS       | windows.cmake    |
+	+------------+-------------+------------+------------------+
+
+** RHEL is still untested
+
 Build status report
 ===================
 
