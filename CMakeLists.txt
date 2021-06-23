@@ -26,7 +26,7 @@ endif()
 #   set(PACKAGE_OPTIONS "${PACKAGE_OPTIONS}" PARENT_SCOPE)
 # endfunction(report_prepare)
 # 
-# Invokation example:
+# Invocation example:
 #
 # report_prepare(
 #   SIMAGE_BUILD_SHARED_LIBS
