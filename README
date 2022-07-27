@@ -151,7 +151,7 @@ files and debug symbols to the hosting system).
 
 __Nothing needs to be changed in the client software__ and the code running in
 the debug session is the same that raised the issues. When finished, the
-debuginfo package can be unistalled.
+debuginfo package can be uninstalled.
 
 Drawbacks:
 
